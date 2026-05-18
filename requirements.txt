@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+python-jose
+passlib[bcrypt]
+bcrypt==4.0.1
+python-multipart
+langchain
+langgraph
+chromadb
+sentence-transformers
+pandas
+fastmcp
+langchain-google-genai
+python-dotenv
+langchain-mcp-adapters

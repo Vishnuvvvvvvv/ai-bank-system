@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Virtual Environment
+venv/
+.env/
+
+# Environment Files
+.env
+
+# VSCode
+.vscode/
+
+# LangSmith / Logs
+*.log
+
+# Google OAuth
+gcp-oauth.keys.json
+credentials/
+tokens.json
+
+# MCP token cache
+.config/
+google-calendar-mcp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+
+# Build
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+
+# Temporary files
+*.tmp
+*.temp
