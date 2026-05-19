@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+from app.services.rag_service import (
+    answer_policy_question
+)
 
 from sqlalchemy.orm import Session
 
@@ -415,4 +418,22 @@ async def chat(
     return {
         "thread_id": thread_id,
         "result": result
+    }
+
+
+
+    
+
+@app.get("/policy/query")
+def query_policy(
+    question: str
+):
+
+    response = answer_policy_question(
+        question
+    )
+
+    return {
+        "question": question,
+        "response": response
     }

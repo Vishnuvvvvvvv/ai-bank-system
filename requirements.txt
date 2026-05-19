@@ -15,3 +15,7 @@ fastmcp
 langchain-google-genai
 python-dotenv
 langchain-mcp-adapters
+langchain-community
+langchain-huggingface
+pypdf
+langchain-chroma
