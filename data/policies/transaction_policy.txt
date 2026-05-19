@@ -1,0 +1,12 @@
+Transaction Policy
+
+Money transfers are processed only from verified customer accounts with sufficient balance.
+
+Transfer rules:
+- The sender account must be active.
+- The receiver account must exist or be a registered beneficiary.
+- Transfers require confirmation before execution in conversational workflows.
+- Failed or reversed transactions may affect transaction health for credit decisions.
+
+Transaction history:
+- Customers may request recent debit and credit transactions for their own accounts.

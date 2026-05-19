@@ -25,6 +25,12 @@ def intent_node(
         state["query"]
     )
 
+    if intent == "LOAN_APPLICATION":
+        intent = "APPLY_LOAN"
+
+    if intent == "TRANSFER_MONEY":
+        intent = "MONEY_TRANSFER"
+
     state["intent"] = intent
 
     return state

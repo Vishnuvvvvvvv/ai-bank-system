@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+from fastapi import File
+from fastapi import Form
+from fastapi import UploadFile
 from app.services.rag_service import (
     answer_policy_question
 )
@@ -67,7 +70,7 @@ from app.services.card_service import (
 from app.services.loan_service import (
     get_user_loans,
     calculate_emi,
-    check_loan_eligibility
+    evaluate_loan_eligibility
 )
 
 from app.services.audit_service import (
@@ -103,6 +106,15 @@ from app.schemas.chat_schema import (
 from app.services.loan_service import (
     apply_for_loan
 )
+from app.services.document_service import (
+    get_user_documents,
+    process_and_store_document
+)
+from app.database.database import (
+    Base,
+    engine
+)
+from app.models.document_upload import DocumentUpload
 from pydantic import BaseModel
 
 from app.agents.supervisor import (
@@ -116,6 +128,12 @@ from uuid import uuid4
 
 
 app = FastAPI()
+
+
+@app.on_event("startup")
+def create_missing_tables():
+
+    Base.metadata.create_all(bind=engine)
 
 
 @app.get("/")
@@ -351,11 +369,15 @@ def emi_calculator(
 
 @app.post("/loan-eligibility")
 def loan_eligibility(
-    request: LoanEligibilityRequest
+    request: LoanEligibilityRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
 ):
 
-    return check_loan_eligibility(
-        request.salary
+    return evaluate_loan_eligibility(
+        db=db,
+        user_id=current_user.id,
+        loan_type=request.loan_type
     )
 
 
@@ -383,6 +405,76 @@ def apply_loan(
     )
 
     return result
+
+
+@app.post("/documents/upload")
+async def upload_document(
+    document_type: str | None = Form(default=None),
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+
+    return await process_and_store_document(
+        db=db,
+        user_id=current_user.id,
+        file=file,
+        document_type=document_type
+    )
+
+
+@app.post("/documents/upload-batch")
+async def upload_documents(
+    document_type: str | None = Form(default=None),
+    files: list[UploadFile] = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+
+    results = []
+
+    for file in files:
+        results.append(
+            await process_and_store_document(
+                db=db,
+                user_id=current_user.id,
+                file=file,
+                document_type=document_type
+            )
+        )
+
+    return {
+        "success": True,
+        "processed_count": len(results),
+        "documents": results
+    }
+
+
+@app.get("/documents")
+def documents(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+
+    uploads = get_user_documents(
+        db,
+        current_user.id
+    )
+
+    return [
+        {
+            "document_id": doc.id,
+            "document_type": doc.document_type,
+            "file_name": doc.file_name,
+            "status": doc.status,
+            "monthly_salary": doc.monthly_salary,
+            "average_balance": doc.average_balance,
+            "monthly_income": doc.monthly_income,
+            "transaction_health": doc.transaction_health,
+            "kyc_validity": doc.kyc_validity,
+        }
+        for doc in uploads
+    ]
 
 
 

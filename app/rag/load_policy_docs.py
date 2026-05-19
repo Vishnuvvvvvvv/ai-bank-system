@@ -6,13 +6,6 @@ from langchain_text_splitters import (
 
 from langchain_chroma import Chroma
 
-# from langchain_huggingface import HuggingFaceEmbeddings
-
-
-from langchain_ollama import (
-    OllamaEmbeddings
-)
-
 def load_documents():
 
     files = [
@@ -20,7 +13,11 @@ def load_documents():
         "data/policies/personal_loan_policy.txt",
         "data/policies/kyc_policy.txt",
         "data/policies/savings_account_policy.txt",
-"data/policies/loan_products.txt",
+        "data/policies/loan_products.txt",
+        "data/policies/bike_loan_policy.txt",
+        "data/policies/debit_card_policy.txt",
+        "data/policies/transaction_policy.txt",
+        "data/policies/loan_eligibility_rules.txt",
     ]
 
     docs = []
@@ -57,15 +54,6 @@ def create_vector_db():
     split_docs = splitter.split_documents(docs)
 
     print(f"Total chunks created: {len(split_docs)}")
-
-    # embeddings = HuggingFaceEmbeddings(
-    #     model_name="sentence-transformers/all-MiniLM-L6-v2"
-    # )
-
-    # embeddings = OllamaEmbeddings(
-    # model="gte-large"
-    # )
-
 
     import httpx
 

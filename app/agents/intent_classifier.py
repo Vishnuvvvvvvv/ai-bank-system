@@ -48,7 +48,7 @@ Examples:
 3. BALANCE_INQUIRY
 Balance/account money questions.
 
-4. TRANSFER_MONEY
+4. MONEY_TRANSFER
 Sending money.
 
 5. LOAN_ELIGIBILITY
@@ -57,19 +57,19 @@ Personalized eligibility.
 Example:
 - Am I eligible for home loan?
 
-6. LOAN_APPLICATION
+6. APPLY_LOAN
 Applying for loan.
 
 Example:
 - Apply for home loan
 
-7. CARD_MANAGEMENT
+7. BLOCK_CARD / ACTIVATE_CARD / FREEZE_CARD
 Block/freeze/activate card.
 
 8. TRANSACTION_HISTORY
 Transaction statements/history.
 
-9. ACCOUNT_SERVICES
+9. ACCOUNT_DETAILS / PROFILE_DETAILS / ACCOUNT_CREATION
 Profile/account updates.
 
 Return ONLY the intent name.

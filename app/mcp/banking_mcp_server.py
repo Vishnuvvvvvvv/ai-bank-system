@@ -40,6 +40,7 @@ from app.services.loan_service import (
     get_user_loans,
     calculate_emi,
     check_loan_eligibility,
+    evaluate_loan_eligibility,
     apply_for_loan,
     get_user_loan_applications
 )
@@ -570,7 +571,10 @@ def emi(
 
 
 @mcp.tool()
-def eligibility(salary: float):
+def eligibility(
+    user_id: int,
+    loan_type: str
+):
     """
     Check loan eligibility based on salary.
 
@@ -580,7 +584,8 @@ def eligibility(salary: float):
     - user asks maximum loan amount
 
     Parameters:
-    - salary: monthly salary
+    - user_id: authenticated banking user ID
+    - loan_type: HOME_LOAN, BIKE_LOAN, PERSONAL_LOAN, or CAR_LOAN
 
     Example Queries:
     - Am I eligible for loan?
@@ -588,9 +593,17 @@ def eligibility(salary: float):
     - Can I get a home loan?
     """
 
-    return check_loan_eligibility(
-        salary
+    db = SessionLocal()
+
+    result = evaluate_loan_eligibility(
+        db,
+        user_id,
+        loan_type
     )
+
+    db.close()
+
+    return result
 
 
 @mcp.tool()

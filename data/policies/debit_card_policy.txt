@@ -1,0 +1,12 @@
+Debit Card Policy
+
+Customers with an active savings account may request a debit card.
+
+Card operations:
+- A customer may block a lost or compromised ATM/debit card immediately.
+- A temporarily frozen card can be reactivated after customer verification.
+- Card activation requires an active linked account.
+
+Security rules:
+- Suspicious usage may trigger temporary freeze.
+- The bank never asks for PIN, OTP, or full card CVV over chat.

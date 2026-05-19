@@ -1,30 +1,6 @@
-from langchain_google_genai import (
-    ChatGoogleGenerativeAI
-)
-
 from app.rag.policy_retriever import (
     retrieve_policy_context
 )
-
-# from app.config import GOOGLE_API_KEY
-
-
-# llm = ChatGoogleGenerativeAI(
-#     model="gemini-3.1-flash-lite",
-#     google_api_key=GOOGLE_API_KEY,
-#     temperature=0.2
-# )
-
-
-# from langchain_ollama import ChatOllama
-
-
-# llm = ChatOllama(
-#     model="deepseek-r1",
-#     temperature=0
-# )
-
-
 
 from langchain_openai import ChatOpenAI
 

@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class LoanEligibilityRequest(BaseModel):
 
-    salary: float
+    loan_type: str
 
 
 class EmiCalculationRequest(BaseModel):
@@ -19,8 +19,8 @@ class LoanApplicationRequest(BaseModel):
 
     loan_type: str
 
-    requested_amount: float
+    requested_amount: float = 0
 
-    annual_income: float
+    annual_income: float = 0
 
-    employment_type: str
+    employment_type: str = ""

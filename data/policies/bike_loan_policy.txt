@@ -1,0 +1,14 @@
+Bike Loan Policy
+
+Bike loans are offered for two-wheeler purchases by salaried customers with verified KYC.
+
+Eligibility rules:
+- Minimum monthly salary: INR 20,000.
+- KYC is mandatory through Aadhaar or PAN.
+- A recent salary slip is required for income validation.
+- Loan amount and tenure are subject to bank underwriting rules.
+
+Documents accepted:
+- Salary slip.
+- Aadhaar or PAN.
+- Vehicle quotation or invoice when available.

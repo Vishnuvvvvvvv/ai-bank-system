@@ -1,19 +1,5 @@
 from langchain_chroma import Chroma
 
-# from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_ollama import (
-    OllamaEmbeddings
-)
-
-# embeddings = HuggingFaceEmbeddings(
-#     model_name="sentence-transformers/all-MiniLM-L6-v2"
-# )
-
-
-# embeddings = OllamaEmbeddings(
-#     model="gte-large"
-# )
-
 import httpx
 
 from langchain_openai import (

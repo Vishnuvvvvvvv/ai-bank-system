@@ -1,0 +1,20 @@
+Loan Eligibility Rules
+
+The AI assistant may explain loan rules from policy, but final eligibility must be calculated by deterministic banking services.
+
+Home loan rules:
+- Minimum monthly salary: INR 30,000.
+- Minimum average balance: INR 50,000.
+- KYC is mandatory.
+- Salary slip and bank statement are required before application creation.
+
+Bike loan rules:
+- Minimum monthly salary: INR 20,000.
+- KYC is mandatory.
+- Salary slip is required before application creation.
+
+Personal loan rules:
+- Minimum monthly salary: INR 25,000.
+- KYC is mandatory.
+- Healthy transaction history is required.
+- Salary slip and bank statement are required before application creation.
