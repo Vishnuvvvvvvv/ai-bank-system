@@ -1,0 +1,33 @@
+Savings Account Information
+
+A savings account allows customers to safely
+deposit money while earning interest.
+
+Features:
+- Secure money storage
+- ATM/debit card access
+- Online banking access
+- Interest earnings
+- Mobile banking support
+
+Documents required to open a savings account:
+- Aadhaar Card
+- PAN Card
+- Passport size photo
+- Address proof
+- Mobile number
+
+Steps to open a savings account:
+1. Submit KYC documents
+2. Fill account opening form
+3. Complete verification
+4. Deposit minimum opening balance
+
+Minimum balance requirement:
+₹5000 for regular savings account.
+
+Types of savings accounts:
+- Regular Savings Account
+- Salary Account
+- Student Savings Account
+- Senior Citizen Savings Account

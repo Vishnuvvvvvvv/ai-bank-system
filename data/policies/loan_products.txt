@@ -1,0 +1,31 @@
+Bank Loan Products
+
+The bank provides multiple loan products.
+
+Available loans:
+- Home Loan
+- Personal Loan
+- Car Loan
+- Education Loan
+- Gold Loan
+- Business Loan
+
+Home Loan:
+- Interest rate starts from 8.5%
+- Maximum tenure: 30 years
+
+Personal Loan:
+- Interest rate starts from 11%
+- No collateral required
+
+Car Loan:
+- Financing available up to 90% of vehicle value
+
+Education Loan:
+- Available for domestic and international studies
+
+Gold Loan:
+- Loan issued against pledged gold
+
+Business Loan:
+- Loans for startups and enterprises

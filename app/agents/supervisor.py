@@ -1,6 +1,6 @@
-from app.agents.intent_classifier import (
-    classify_intent
-)
+# from app.agents.intent_classifier import (
+#     classify_intent
+# )
 
 from app.agents.account_agent import (
     build_account_agent
@@ -18,9 +18,6 @@ from app.agents.loan_agent import (
     build_loan_agent
 )
 
-from app.agents.rag_agent import (
-    rag_agent
-)
 from app.agents.context_builder import (
     build_user_context
 )
@@ -35,10 +32,17 @@ from app.agents.tool_registry import (
     get_all_tools
 )
 
+from app.agents.rag_agent import (
+    rag_agent
+)
+
+
+
 async def supervisor_router(
          db,
     query: str,
     user_id: int,
+     intent: str,
     workflow_data: dict
 ):
 
@@ -89,8 +93,31 @@ async def supervisor_router(
             "response": result
         }
 
-    intent = classify_intent(query)
+    # intent = classify_intent(query)
 
+
+    # =========================================
+# FAQ / POLICY QUERIES
+# =========================================
+
+    # =========================================
+# FAQ / POLICY QUERIES
+# =========================================
+
+    if intent in [
+        "FAQ_QUERY",
+        "POLICY_QUERY"
+    ]:
+
+        response = await rag_agent(
+            query=query
+        )
+
+        return {
+            "intent": intent,
+            "response": response,
+            "workflow_data": workflow_data
+        }
     # ==========================================
     # ACCOUNT DOMAIN
     # ==========================================

@@ -18,7 +18,9 @@ def load_documents():
     files = [
         "data/policies/home_loan_policy.txt",
         "data/policies/personal_loan_policy.txt",
-        "data/policies/kyc_policy.txt"
+        "data/policies/kyc_policy.txt",
+        "data/policies/savings_account_policy.txt",
+"data/policies/loan_products.txt",
     ]
 
     docs = []

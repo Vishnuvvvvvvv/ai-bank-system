@@ -1,19 +1,17 @@
-from app.agents.llm import llm
+from app.rag.policy_qa import (
+    answer_policy_question
+)
 
 
 async def rag_agent(
     query: str
 ):
 
-    prompt = f"""
-You are a banking knowledge assistant.
+    response = answer_policy_question(
+        query=query
+    )
 
-Answer banking FAQ queries professionally.
-
-User Query:
-{query}
-"""
-
-    response = llm.invoke(prompt)
-
-    return response.content
+    return {
+        "intent": "POLICY_QUERY",
+        "message": response
+    }

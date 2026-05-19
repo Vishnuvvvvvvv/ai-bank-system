@@ -49,6 +49,7 @@ async def supervisor_node(
             db=db,
             query=state["query"],
             user_id=state["user_id"],
+                intent=state["intent"],
             workflow_data=workflow_data
         )
 
