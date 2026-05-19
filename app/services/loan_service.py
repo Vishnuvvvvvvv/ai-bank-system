@@ -64,6 +64,7 @@ def normalize_loan_type(loan_type: str | None):
         "HOME": "HOME_LOAN",
         "HOME_LOAN": "HOME_LOAN",
         "HOUSE_LOAN": "HOME_LOAN",
+        "HOUSING_LOAN": "HOME_LOAN",
         "BIKE": "BIKE_LOAN",
         "BIKE_LOAN": "BIKE_LOAN",
         "TWO_WHEELER_LOAN": "BIKE_LOAN",
@@ -81,7 +82,7 @@ def infer_loan_type_from_query(query: str):
 
     lowered = query.lower()
 
-    if "home" in lowered or "house" in lowered:
+    if "home" in lowered or "house" in lowered or "housing" in lowered:
         return "HOME_LOAN"
 
     if "bike" in lowered or "two wheeler" in lowered:

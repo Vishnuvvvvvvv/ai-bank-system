@@ -32,6 +32,7 @@ from app.agents.workflow_extractors import (
 from app.models.account import Account
 from app.models.beneficiary import Beneficiary
 from app.models.loan_application import LoanApplication
+from app.models.user import User
 from app.services.audit_service import create_audit_log
 from app.services.loan_service import (
     apply_for_loan,
@@ -124,6 +125,19 @@ async def supervisor_router(
         }
 
     # intent = classify_intent(query)
+
+    profile_status_response = _handle_profile_status_query(
+        db=db,
+        user_id=user_id,
+        query=query,
+    )
+
+    if profile_status_response:
+        return {
+            "intent": "PROFILE_DETAILS",
+            "response": profile_status_response,
+            "workflow_data": workflow_data,
+        }
 
     document_followup = _handle_pending_loan_document_followup(
         db=db,
@@ -591,6 +605,21 @@ def _format_transfer_result(result: dict) -> str:
 
 
 def _extract_money_amount(query: str) -> float | None:
+    scale_match = re.search(
+        r"\b([0-9][0-9,]*(?:\.\d+)?)\s*(lakh|lakhs|lac|lacs|crore|crores)\b",
+        query,
+        flags=re.IGNORECASE,
+    )
+
+    if scale_match:
+        amount = float(scale_match.group(1).replace(",", ""))
+        scale = scale_match.group(2).lower()
+
+        if scale in ["lakh", "lakhs", "lac", "lacs"]:
+            return amount * 100000
+
+        return amount * 10000000
+
     currency_patterns = [
         r"(?:inr|rs\.?|rupees|₹)\s*([0-9][0-9,]*(?:\.\d+)?)",
         r"([0-9][0-9,]*(?:\.\d+)?)\s*(?:inr|rs\.?|rupees|₹)",
@@ -717,6 +746,31 @@ def _try_update_pending_loan_amount(
         "Updated your pending loan application requested amount to "
         f"INR {amount:,.2f}."
     )
+
+
+def _handle_profile_status_query(
+    db,
+    user_id: int,
+    query: str,
+) -> str | None:
+    lowered = query.lower()
+
+    if "kyc" not in lowered:
+        return None
+
+    if not any(
+        word in lowered
+        for word in ["my", "me", "verification", "verified", "status"]
+    ):
+        return None
+
+    user = db.query(User).filter(User.id == user_id).first()
+    status = user.kyc_status if user else "UNKNOWN"
+
+    if status == "VERIFIED":
+        return "Yes, your KYC verification is completed."
+
+    return f"Your KYC status is {status}."
 
 
 def _handle_pending_loan_document_followup(

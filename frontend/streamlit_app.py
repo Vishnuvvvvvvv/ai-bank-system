@@ -278,7 +278,10 @@ def extract_assistant_text(payload: dict[str, Any]) -> str:
             return format_response_dict(response)
 
         if "response" in response:
-            return extract_from_response_value(response["response"])
+            nested_response = response["response"]
+            if isinstance(nested_response, dict) and "eligible" in nested_response:
+                return format_eligibility_response(nested_response)
+            return extract_from_response_value(nested_response)
 
         if response.get("awaiting_document_upload"):
             missing = ", ".join(response.get("missing_documents", []))
@@ -303,6 +306,9 @@ def extract_from_response_value(value: Any) -> str:
     if isinstance(value, dict):
         if "messages" in value:
             return extract_final_message_text(value["messages"])
+
+        if "eligible" in value:
+            return format_eligibility_response(value)
 
         if "message" in value:
             return format_response_dict(value)
