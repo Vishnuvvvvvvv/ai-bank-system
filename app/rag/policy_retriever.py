@@ -1,10 +1,48 @@
 from langchain_chroma import Chroma
 
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_ollama import (
+    OllamaEmbeddings
+)
+
+# embeddings = HuggingFaceEmbeddings(
+#     model_name="sentence-transformers/all-MiniLM-L6-v2"
+# )
 
 
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+# embeddings = OllamaEmbeddings(
+#     model="gte-large"
+# )
+
+import httpx
+
+from langchain_openai import (
+    OpenAIEmbeddings
+)
+
+from app.config import (
+    GENAI_API_KEY,
+)
+
+
+client = httpx.Client(
+    verify=False
+)
+
+
+embeddings = OpenAIEmbeddings(
+
+    base_url="https://genailab.tcs.in",
+
+    model="azure/genailab-maas-text-embedding-3-large",
+
+    api_key=GENAI_API_KEY,
+
+    http_client=client,
+
+    tiktoken_enabled=False,
+
+     check_embedding_ctx_length=False
 )
 
 vectordb = Chroma(

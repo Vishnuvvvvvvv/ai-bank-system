@@ -4,6 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-GOOGLE_API_KEY = os.getenv(
-    "GOOGLE_API_KEY"
+GENAI_API_KEY = os.getenv(
+    "GENAI_API_KEY"
 )
